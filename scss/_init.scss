@@ -1,0 +1,49 @@
+* {
+    font-family: "Noto Sans", "Noto Sans TC", sans-serif;
+    // font-family: 'Microsoft JhengHei', 'Noto Sans TC', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    @include remove_BlueCover;
+}
+
+a {
+    background-color: transparent;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+ul {
+    list-style: none;
+}
+
+input,
+select,
+button,
+textarea {
+    outline: 0;
+}
+
+button {
+    border: 0;
+}
+
+body {
+    background-color: #ffffff;
+    @include scroll_Smooth;
+}
+
+/* FOR MOZILLA */
+@-moz-document url-prefix() {}
+
+
+/* FOR CHROME */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    /* Safari and Chrome, if Chrome rule needed */
+}
+
+
+/* Safari 5+ ONLY */
+::i-block-chrome {}

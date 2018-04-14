@@ -1,0 +1,202 @@
+@mixin ts_FS($duration: 0.3s) {
+  transition: all $duration;
+  -ms-transition: all $duration;
+  -moz-transition: all $duration;
+  -webkit-transition: all $duration;
+}
+
+@mixin tf_PS($posiX: 0, $posiY: 0) {
+  -ms-transform: translate($posiX, $posiY);
+  -webkit-transform: translate($posiX, $posiY);
+  transform: translate($posiX, $posiY);
+}
+
+@mixin tf_RO($deg: 0) {
+  -ms-transform: rotate($deg);
+  -webkit-transform: rotate($deg);
+  transform: rotate($deg);
+}
+
+@mixin tf_ROY($deg: 0) {
+  -ms-transform: rotateY($deg);
+  -webkit-transform: rotateY($deg);
+  transform: rotateY($deg);
+}
+
+@mixin tf_ROY_SC($deg: 0, $scale:1) {
+  -ms-transform: rotateY($deg) sclae($scale);
+  -webkit-transform: rotateY($deg) scale($scale);
+  transform: rotateY($deg) scale($scale);
+}
+
+@mixin tf_SC($scale: 1) {
+  -ms-transform: scale($scale);
+  -webkit-transform: scale($scale);
+  transform: scale($scale);
+}
+
+@mixin tf_SCXY($scaleX: 1, $scaleY: 1) {
+  -ms-transform: scale($scaleX, $scaleY);
+  -webkit-transform: scale($scaleX, $scaleY);
+  transform: scale($scaleX, $scaleY);
+  -moz-transform: scale($scaleX, $scaleY);
+}
+
+@mixin tf_PS_RO($posiX: 0, $posiY: 0, $deg: 0) {
+  transform: translate($posiX, $posiY) rotate($deg);
+  -ms-transform: translate($posiX, $posiY) rotate($deg);
+  -moz-transform: translate($posiX, $posiY) rotate($deg);
+  -webkit-transform: translate($posiX, $posiY) rotate($deg);
+}
+
+@mixin tf_PS_SC($posiX: 0, $posiY: 0, $scale: 1) {
+  transform: translate($posiX, $posiY) scale($scale);
+  -ms-transform: translate($posiX, $posiY) scale($scale);
+  -moz-transform: translate($posiX, $posiY) scale($scale);
+  -webkit-transform: translate($posiX, $posiY) scale($scale);
+}
+
+@mixin tf_PS_SC_RO($posiX: 0, $posiY: 0, $scale: 1, $deg: 0) {
+  transform: translate($posiX, $posiY) scale($scale);
+  -ms-transform: translate($posiX, $posiY) scale($scale) rotate($deg);
+  -moz-transform: translate($posiX, $posiY) scale($scale) rotate($deg);
+  -webkit-transform: translate($posiX, $posiY) scale($scale) rotate($deg);
+}
+
+@mixin tf_ORI($posiX: 0, $posiY: 0) {
+  -webkit-transform-origin: $posiX $posiY;
+  transform-origin: $posiX $posiY;
+}
+
+@mixin text_Ellipsis($lines:1) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin placeholder($color:#000000, $opa:0.5) {
+  &::-webkit-input-placeholder {
+    opacity: $opa;
+    color: $color;
+  }
+  &::-moz-placeholder {
+    opacity: $opa;
+    color: $color;
+  }
+  &:-ms-input-placeholder {
+    opacity: $opa;
+    color: $color;
+  }
+}
+
+@mixin text_Select($bgcolor: #5496b1, $textcolor:#ffffff) {
+  &::selection {
+    background: $bgcolor;
+    color: $textcolor;
+    /* WebKit/Blink Browsers */
+  }
+  &::-moz-selection {
+    background: $bgcolor;
+    color: $textcolor;
+    /* Gecko Browsers */
+  }
+}
+
+@mixin div_Img {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+@mixin scrollbarA() {
+  &::-webkit-scrollbar-track {
+    // display: none;
+  }
+  &::-webkit-scrollbar {
+    // width: 4px;
+    // opacity: 0.2;
+    // display: initial;
+  }
+  &::-webkit-scrollbar-thumb {
+    // background-color: #d8d8d8;
+    // border-radius: 4px;
+    // display: initial;
+  }
+}
+
+@mixin scrollbarHide() {
+  &::-webkit-scrollbar-track {
+    display: none;
+  }
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  &::-webkit-scrollbar-thumb {
+    display: none;
+  } // IE HIDE
+  -ms-overflow-style: none;
+  overflow: auto;
+}
+
+@mixin flex_C() {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@mixin inline_flex() {
+  display: -webkit-inline-box;
+  display: -moz-inline-box;
+  display: -ms-inline-flexbox;
+  display: -webkit-inline-flex;
+  display: inline-flex;
+}
+
+@mixin flex() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin flex_align($align:center) {
+  -webkit-box-align: $align;
+  -moz-box-align: $align;
+  -ms-flex-align: $align;
+  -webkit-align-items: $align;
+  align-items: $align;
+}
+
+@mixin flex_center($align:center) {
+  @include flex;
+  @include flex_align;
+  justify-content: center;
+}
+
+@mixin remove_BlueCover() {
+  outline: 0;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+@mixin scroll_Smooth() {
+  -webkit-overflow-scrolling: touch;
+}
+
+@mixin noselect() {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@mixin autoMarginTop($dis){
+  margin-top: $dis;
+  &:nth-child(1){
+     margin-top: 0;
+  }
+}

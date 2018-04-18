@@ -1,7 +1,7 @@
 var app = new Vue({
   el: '#app',
   data: {
-    shareLink: 'https://wasateam.com/blow',
+    shareLink: 'https://fufublow.dopastar.com',
     loading: true,
     muted:false,
     progress: 0,

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html prefix='og: http://ogp.me/ns#'>
 
 <head>
   <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -25,15 +25,21 @@
   <script src="plugin/volume/volume-meter.js"></script>
   <!-- CSS -->
   <link rel="stylesheet" type="text/css" href="css/style.css">
+  <meta property="og:title" content="挑戰呼呼哥"></meta>
+  <meta property="og:site_name" content="挑戰呼呼哥"></meta>
+  <meta property="og:description" content="挑戰呼呼哥，來把蒼蠅吹走"></meta>
+  <meta property="og:url" content="https://fufublow.dopastar.com/"></meta>
+  <meta property="og:image" content="https://fufublow.dopastar.com/img/fufubro-shareCover-01.png"></meta>
+  <meta property="og:image" content="https://fufublow.dopastar.com/img/fufubro-shareCover-02.png"></meta>
 </head>
 
 <body ontouchstart="">
   <div id="app">
     <div class="sound-b">
-        <audio ref="blowSound" :src="sound.urls.blow" preload="auto" controls></audio>
-        <audio ref="bgMusic" :src="sound.urls.bgMusic" preload="auto" controls loop></audio>
-        <audio ref="completeMusic" :src="sound.urls.complete" preload="auto" controls loop></audio>
-        <audio ref="ggSound" :src="sound.urls.gg" preload="auto" controls></audio>
+      <audio ref="blowSound" :src="sound.urls.blow" preload="auto" controls></audio>
+      <audio ref="bgMusic" :src="sound.urls.bgMusic" preload="auto" controls loop></audio>
+      <audio ref="completeMusic" :src="sound.urls.complete" preload="auto" controls loop></audio>
+      <audio ref="ggSound" :src="sound.urls.gg" preload="auto" controls></audio>
     </div>
     <div class="url-copy-b">
       <input type="text" id="urlCopy" :value="shareLink">
@@ -213,20 +219,20 @@
           </div>
           <div class="btns">
             <a @click="modeRoundOpen(1)">
-                <img src="img/btn-home.png" class="btn-pic">  
-                <img src="img/btn-home-txt.png" class="btn-text">
-                <img src="img/btn-home-shadow.png" class="btn-shadow">
-              </a>
+              <img src="img/btn-home.png" class="btn-pic">
+              <img src="img/btn-home-txt.png" class="btn-text">
+              <img src="img/btn-home-shadow.png" class="btn-shadow">
+            </a>
             <a @click="modeRoundOpen(round.stage)">
-                <img src="img/btn-tryagain.png" class="btn-pic">  
-                <img src="img/btn-tryagain-txt.png" class="btn-text">
-                <img src="img/btn-tryagain-shadow.png" class="btn-shadow">
-              </a>
+              <img src="img/btn-tryagain.png" class="btn-pic">
+              <img src="img/btn-tryagain-txt.png" class="btn-text">
+              <img src="img/btn-tryagain-shadow.png" class="btn-shadow">
+            </a>
             <a @click="shareOpen()">
-                <img src="img/btn-share.png" class="btn-pic">  
-                <img src="img/btn-share-txt.png" class="btn-text">
-                <img src="img/btn-share-shadow.png" class="btn-shadow">
-              </a>
+              <img src="img/btn-share.png" class="btn-pic">
+              <img src="img/btn-share-txt.png" class="btn-text">
+              <img src="img/btn-share-shadow.png" class="btn-shadow">
+            </a>
           </div>
         </section>
         <img src="img/bg.svg" class="container-bg" :class="{active:bg=='pink'}">

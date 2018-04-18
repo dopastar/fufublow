@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- <meta name="viewport" content="initial-scale=1.0, user-scalable=no"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="HandheldFriendly" content="true" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <!-- vue -->
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <!-- function js -->
+  <script src="js/use/general.js"></script>
+  <!-- function js -->
+  <script src="plugin/progressbar.min.js"></script>
+  <!-- Include the volume meter component -->
+  <script src="plugin/volume/volume-meter.js"></script>
+  <!-- CSS -->
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body ontouchstart="">
+  <div id="app">
+    <div class="sound-b">
+        <audio ref="blowSound" :src="sound.urls.blow" preload="auto" controls></audio>
+        <audio ref="bgMusic" :src="sound.urls.bgMusic" preload="auto" controls loop></audio>
+        <audio ref="completeMusic" :src="sound.urls.complete" preload="auto" controls loop></audio>
+        <audio ref="ggSound" :src="sound.urls.gg" preload="auto" controls></audio>
+    </div>
+    <div class="url-copy-b">
+      <input type="text" id="urlCopy" :value="shareLink">
+    </div>
+    <transition name="fade">
+      <div class="loading-cover" v-if="loading">
+        <div class="text">
+          <img src="img/loading-txt.svg" alt="">
+        </div>
+        <div class="bg">
+          <img src="img/loading-bg.svg" alt="">
+        </div>
+        <div class="line-b">
+          <div class="line" :style="{width:progress+'%'}">
+            <img src="img/loading-progress-100.svg" alt="">
+          </div>
+        </div>
+      </div>
+    </transition>
+    <transition name="fade">
+      <div class="share-lightbox" v-if="sharinging">
+        <div class="btns">
+          <a target="_blank" :href="'https://www.facebook.com/sharer/sharer.php?u='+shareLink+'%2F&amp;src=sdkpreparse'" class="fb-xfbml-parse-ignore">
+            <img src="img/sharebtn-fb.png">
+          </a>
+          <a target="_blank" :href="'https://social-plugins.line.me/lineit/share?url='+shareLink">
+            <img src="img/sharebtn-line.png">
+          </a>
+          <a @click="copyShareUrl()">
+            <img src="img/sharebtn-copylink.png">
+          </a>
+        </div>
+        <div class="bg">
+          <img src="img/share-box-01.png">
+        </div>
+        <div class="close-detect-b" @click="shareClose()"></div>
+      </div>
+    </transition>
+    <div class="container-b">
+      <div class="container">
+        <!-- START 首頁 -->
+        <section class="p-index" :class="{active:mode=='index'}">
+          <img src="img/index-title.svg" alt="挑戰呼呼哥" class="title">
+          <div class="start-btn" @click="modeBlowTestOpen">
+            <img src="img/btn-start.svg" class="btn">
+            <img src="img/btn_Start_shadow.svg" class="shadow">
+          </div>
+          <div class="fufubro">
+            <img src="img/fufubro.svg">
+            <img src="img/fufubro-max.svg">
+          </div>
+          <img src="img/fufubro_breath-Left.svg" class="breath left">
+          <img src="img/fufubro_breath-Mouth.svg" class="breath mouth">
+        </section>
+        <!-- mic 吹 測試 -->
+        <section class="p-blowtest" :class="{active:mode=='blowtest'}">
+          <div class="fufubro">
+            <img src="img/fufubro.svg">
+            <img src="img/fufubro-max.svg">
+          </div>
+          <img src="img/blowHint.png" class="des">
+        </section>
+        <!-- 遊戲過場 -->
+        <section class="p-round" :class="[{active:mode=='round'},{animating:round.playActive}]">
+          <div class="preview">
+            <div class="badge">
+              <img src="img/badge-round-1.svg" alt="Round1" :class="{active:round.stage==1}">
+              <img src="img/badge-round-2.svg" alt="Round2" :class="{active:round.stage==2}">
+              <img src="img/badge-round-3.svg" alt="Round3" :class="{active:round.stage==3}">
+              <img src="img/badge-round-4.svg" alt="Round4" :class="{active:round.stage==4}">
+            </div>
+            <img src="img/passerby-back.svg" class="passerby-back">
+            <img src="img/passerby-front.svg" class="passerby-front">
+            <img src="img/mic.svg" class="mic">
+            <img src="img/fufubro-1.svg" class="fufubro">
+            <img src="img/hohoman-1.svg" class="hohoman">
+          </div>
+          <div class="head">
+            <img src="img/bighead.png" class="default">
+          </div>
+        </section>
+        <!-- 開始玩 -->
+        <section class="p-start" :class="{active:mode=='start'}">
+          <div class="head" :class="{over:gaming.status==4}">
+            <img src="img/bighead.png" class="default">
+            <img src="img/bighead-bald.png" class="bald">
+            <img src="img/hair.png" class="hair">
+          </div>
+          <div class="bug-b" :class="['stage-'+round.stage,{flyout:gaming.status==3}]">
+            <div class="bug fly" :class="{active:round.stage==1}">
+              <img src="img/fly-1.png" :class="{active:gaming.status==0||gaming.status>3}">
+              <img src="img/fly-2.png" :class="{active:gaming.status==1}">
+              <img src="img/fly-3.png" :class="{active:gaming.status==2}">
+              <img src="img/fly-4.png" :class="{active:gaming.status==3}">
+            </div>
+            <div class="bug bee" :class="{active:round.stage==2}">
+              <img src="img/bee-1.png" :class="{active:gaming.status==0}">
+              <img src="img/bee-2.png" :class="{active:gaming.status==1}">
+              <img src="img/bee-3.png" :class="{active:gaming.status==2}">
+              <img src="img/bee-4.png" :class="{active:gaming.status>2}">
+            </div>
+            <div class="bug butterfly" :class="{active:round.stage==3}">
+              <img src="img/butterfly-1.png" :class="{active:gaming.status==0}">
+              <img src="img/butterfly-2.png" :class="{active:gaming.status==1}">
+              <img src="img/butterfly-3.png" :class="{active:gaming.status==2}">
+              <img src="img/butterfly-4.png" :class="{active:gaming.status>2}">
+            </div>
+            <div class="bug horn" :class="{active:round.stage==4}">
+              <img src="img/horn-1.png" :class="{active:gaming.status==0}">
+              <img src="img/horn-2.png" :class="{active:gaming.status==1}">
+              <img src="img/horn-3.png" :class="{active:gaming.status==2}">
+              <img src="img/horn-4.png" :class="{active:gaming.status>2}">
+            </div>
+          </div>
+          <slot v-if="mic && gaming.desShow">
+            <img src="img/hint-PC-fly.png" class="mic-des" :class="{active:round.stage==1}">
+            <img src="img/hint-PC-bee.png" class="mic-des" :class="{active:round.stage==2}">
+            <img src="img/hint-PC-butterfly.png" class="mic-des" :class="{active:round.stage==3}">
+            <img src="img/hint-PC-horn.png" class="mic-des" :class="{active:round.stage==4}">
+          </slot>
+          <slot v-if="!mic && gaming.desShow">
+            <img src="img/hint-pump-fly.png" class="pump-des" :class="{active:round.stage==1}">
+            <img src="img/hint-pump-bee.png" class="pump-des" :class="{active:round.stage==2}">
+            <img src="img/hint-pump-butterfly.png" class="pump-des" :class="{active:round.stage==3}">
+            <img src="img/hint-pump-horn.png" class="pump-des" :class="{active:round.stage==4}">
+          </slot>
+          <div class="fufumouth" v-if="mic">
+            <img src="img/fufuface-normal.png" :class="{active:gaming.status<3}">
+            <img src="img/fufuface-passGreen.png" :class="{active:gaming.status==3}">
+            <img src="img/fufuface-over.png" :class="{active:gaming.status==4}">
+          </div>
+          <div class="progess-b">
+            <div class="line" :style="{width:gaming.lineWidth+'%'}">
+              <img src="img/progressbar-overrides-normal.png" :class="{active:gaming.status<3}">
+              <img src="img/progressbar-overrides-ok.png" :class="{active:gaming.status==3}">
+              <img src="img/progressbar-overrides-over.png" :class="{active:gaming.status==4}">
+            </div>
+            <img src="img/progressbar-mid.png" class="sep">
+            <img src="img/progressbar-bg.png" class="bg">
+          </div>
+          <div class="pump" @mousedown="lineWidthPump" v-if="!mic&&device=='pc'">
+            <img src="img/pump-normal.png" class="normal">
+            <img src="img/pump-squeeze.png" class="squeeze">
+            <div class="pump-face">
+              <img src="img/pump-face-1.png">
+              <img src="img/pump-face-2.png">
+            </div>
+          </div>
+          <div class="pump" @touchstart="lineWidthPump" v-if="!mic&&device=='mobile'">
+            <img src="img/pump-normal.png" class="normal">
+            <img src="img/pump-squeeze.png" class="squeeze">
+            <div class="pump-face">
+              <img src="img/pump-face-1.png">
+              <img src="img/pump-face-2.png">
+            </div>
+          </div>
+        </section>
+        <!-- 失敗過場 -->
+        <section class="p-fail" :class="{active:mode=='fail'}">
+          <img src="img/fail.jpg" class="base">
+        </section>
+        <!-- 成功過場 -->
+        <section class="p-success" :class="{active:mode=='success'}">
+          <!-- <img src="img/success.jpg" class="base"> -->
+          <img src="img/fufubro-success.png" class="fufubro">
+          <img src="img/badge-cool.png" class="cool">
+          <img src="img/sunglasses.png" class="sunglasses" :class="{active:success.active}">
+        </section>
+        <!-- 分享 -->
+        <section class="p-share" :class="{active:mode=='share'}">
+          <img src="img/badge-level.png" class="title">
+          <div class="trophy">
+            <img src="img/trophy-fly.png" :class="{active:round.stage==1}">
+            <img src="img/trophy-bee.png" :class="{active:round.stage==2}">
+            <img src="img/trophy-butterfly.png" :class="{active:round.stage==3}">
+            <img src="img/trophy-horn.png" :class="{active:round.stage==4}">
+          </div>
+          <div class="btns">
+            <a @click="modeRoundOpen(1)">
+                <img src="img/btn-home.png" class="btn-pic">  
+                <img src="img/btn-home-txt.png" class="btn-text">
+                <img src="img/btn-home-shadow.png" class="btn-shadow">
+              </a>
+            <a @click="modeRoundOpen(round.stage)">
+                <img src="img/btn-tryagain.png" class="btn-pic">  
+                <img src="img/btn-tryagain-txt.png" class="btn-text">
+                <img src="img/btn-tryagain-shadow.png" class="btn-shadow">
+              </a>
+            <a @click="shareOpen()">
+                <img src="img/btn-share.png" class="btn-pic">  
+                <img src="img/btn-share-txt.png" class="btn-text">
+                <img src="img/btn-share-shadow.png" class="btn-shadow">
+              </a>
+          </div>
+        </section>
+        <img src="img/bg.svg" class="container-bg" :class="{active:bg=='pink'}">
+        <img src="img/bg-2.png" class="container-bg" :class="{active:bg=='gray'}">
+      </div>
+    </div>
+  </div>
+</body>
+<script src="js/vue-page/index.js"></script>
+
+</html>

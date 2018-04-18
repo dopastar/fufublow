@@ -1,0 +1,188 @@
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .3s;
+}
+
+.fade-enter,
+.fade-leave-to
+/* .fade-leave-active below version 2.1.8 */
+
+{
+  opacity: 0;
+}
+
+@keyframes opaToggle {
+  0% {
+    opacity: 1;
+    z-index: 1;
+  }
+  5%{
+    opacity: .7;
+    z-index: 0;
+  }
+  50%{
+    opacity: .7;
+    z-index: 0;
+  }
+  55%{
+    opacity: 1;
+    z-index: 1;
+  }
+  100%{
+    opacity: 1;
+    z-index: 1;
+  }
+}
+
+@mixin displayToggle($delay:0) {
+  animation-name: displayToggle;
+  -webkit-animation-name: displayToggle;
+  animation-duration: 2s;
+  -webkit-animation-duration: 2s;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  -webkit-animation-timing-function: linear;
+  animation-delay:$delay;
+}
+
+@keyframes displayToggle {
+  0% {
+    opacity: 0;
+  }
+  49%{
+    opacity: 0;
+  }
+  50%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+@mixin opaToggle($delay:0) {
+  animation-name: opaToggle;
+  -webkit-animation-name: opaToggle;
+  animation-duration: 2s;
+  -webkit-animation-duration: 2s;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  -webkit-animation-timing-function: linear;
+  animation-delay:$delay;
+}
+
+@keyframes breathFlow {
+  0% {
+    @include tf_PS_RO(5px,1px);
+  }
+  20%{
+    @include tf_PS_RO(-2px,-1px);
+  }
+  40%{
+    @include tf_PS_RO(-4.8px,1px);
+  }
+  50%{
+    @include tf_PS_RO(-5px,-1px);
+  }
+  70%{
+    @include tf_PS_RO(2px,1px);
+  }
+  90%{
+    @include tf_PS_RO(4.8px,-1px);
+  }
+  100%{
+    @include tf_PS_RO(5px,1px);
+  }
+}
+
+@mixin breathFlow($duration:3s,$delay:0) {
+  animation-name: breathFlow;
+  -webkit-animation-name: breathFlow;
+  animation-duration: $duration;
+  -webkit-animation-duration: $duration;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  -webkit-animation-timing-function: linear;
+  animation-delay:$delay;
+}
+
+@keyframes bugFlyOut {
+  0% {
+    @include tf_PS(0,0);
+  }
+  100%{
+    @include tf_PS(-50px,-800px);
+  }
+}
+
+@mixin bugFlyOut($duration:2s,$delay:0) {
+  animation-name: bugFlyOut;
+  -webkit-animation-name: bugFlyOut;
+  animation-duration: $duration;
+  -webkit-animation-duration: $duration;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  -webkit-animation-iteration-count: 1;
+  animation-timing-function: ease;
+  -webkit-animation-timing-function: ease;
+  animation-delay:$delay;
+}
+
+@keyframes hairFlyOut {
+  0% {
+    @include tf_PS_RO(0,0,0);
+  }
+  100%{
+    @include tf_PS_RO(-1000px,-500px,-30deg);
+  }
+}
+
+@mixin hairFlyOut($duration:1s,$delay:0) {
+  animation-name: hairFlyOut;
+  -webkit-animation-name: hairFlyOut;
+  animation-duration: $duration;
+  -webkit-animation-duration: $duration;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  -webkit-animation-iteration-count: 1;
+  animation-timing-function: ease;
+  -webkit-animation-timing-function: ease;
+  animation-delay:$delay;
+}
+
+@keyframes sunglassesFlyIn {
+  0% {
+    @include tf_PS_SC_RO(-400px,-200px,0.8,180deg);
+  }
+  50%{
+    @include tf_PS_SC_RO(-200px,-100px,1,90deg);
+  }
+  100%{
+    @include tf_PS_SC_RO(0,0,1,0);
+  }
+}
+
+@mixin sunglassesFlyIn($duration:.8s,$delay:0) {
+  animation-name: sunglassesFlyIn;
+  -webkit-animation-name: sunglassesFlyIn;
+  animation-duration: $duration;
+  -webkit-animation-duration: $duration;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  -webkit-animation-iteration-count: 1;
+  animation-timing-function: linear;
+  -webkit-animation-timing-function: linear;
+  animation-delay:$delay;
+}

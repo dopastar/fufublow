@@ -1,0 +1,15 @@
+https://hackingbeauty.github.io/react-mic/
+
+https://www.oxxostudio.tw/demo/201601/web-audio-recorder-demo02.html
+
+https://hackingbeauty.github.io/react-mic/
+
+https://webaudiodemos.appspot.com/input/index.html
+
+https://developer.microsoft.com/en-us/microsoft-edge/testdrive/demos/microphone/
+
+https://webrtc.github.io/samples/src/content/getusermedia/volume/
+
+https://p5js.org/examples/sound-mic-input.html
+
+https://wasateam.com/20180328-blow/
